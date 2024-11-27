@@ -3,6 +3,7 @@
 import rospy
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
+from std_msgs.msg import String
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
@@ -14,6 +15,8 @@ class LineFollower:
 
         # Publisher for robot movement
         self.pub = rospy.Publisher('/B1/cmd_vel', Twist, queue_size=1)
+        # Publisher for score tracking
+        self.pub_score = rospy.Publisher('/score_tracker', String, queue_size=1)
 
         # Initialize CV Bridge
         self.bridge = CvBridge()
@@ -23,6 +26,9 @@ class LineFollower:
 
         # Initialize Twist message for movement commands
         self.cmd_move = Twist()
+
+        # Start time for score tracking
+        self.start_time = rospy.Time.now()
 
     def image_callback(self, msg):
         """
@@ -94,6 +100,10 @@ class LineFollower:
             self.cmd_move.linear.x = 0.0
             self.cmd_move.angular.z = 0.3  # Rotate to search for the lines
             self.pub.publish(self.cmd_move)
+
+        # Publish the elapsed time to the score tracker
+        elapsed_time = (rospy.Time.now() - self.start_time).to_sec()
+        self.pub_score.publish(String(data=f"Elapsed Time: {elapsed_time:.2f} seconds"))
 
     def run(self):
         # Keep the node running
