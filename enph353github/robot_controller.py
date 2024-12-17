@@ -315,10 +315,10 @@ class NavigationController():
     def update_score_tracker(self, position, prediction='NA'):
         self.score_publisher.publish(String(data=f'{TEAM_NAME},{PWD},{position},{prediction}'))
 
-TP1 = [5.5, 2.5, 0.2, 0, 0, math.radians(-90)]
-TP2 = [0.5, 0, 0.2, 0, 0, math.radians(90)]
-TP3 = [-3.88, 0.41, 0.2, 0, 0, math.radians(180)]
-TP4 = [-4, -2.3, 0.2, 0, 0, math.radians(0)]
+Position1 = [5.5, 2.5, 0.2, 0, 0, math.radians(-90)]
+Position2 = [0.5, 0, 0.2, 0, 0, math.radians(90)]
+Position3 = [-3.88, 0.41, 0.2, 0, 0, math.radians(180)]
+Position4 = [-4, -2.3, 0.2, 0, 0, math.radians(0)]
 
 PWD = 'Smash'
 TEAM_NAME = 'Smash'
