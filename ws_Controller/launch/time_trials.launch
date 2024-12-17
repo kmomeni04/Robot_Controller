@@ -1,8 +1,0 @@
-<launch>
-    <node pkg="my_controller" type="time_trials.py" name="driving_playback" output="screen">
-        <param name="fps" value="20.0" />
-        <param name="video_path" value="$(find my_controller)/data/driving_recording.avi" />
-    </node>
-</launch>
-
-
